@@ -6,6 +6,7 @@ General Diffusion process : dX = drift * dT + sigma * dZ
 using namespace std;
 
 typedef double Rate;
+typedef double Vol;
 typedef double Time;
 typedef double Value;
 
@@ -33,3 +34,25 @@ public:
 		return sigma*sigma*dt;
 	}
 };
+
+class BlackScholesProcess : public DiffusionProcess{
+	Rate rate_ ;
+	Volatility volatility_;
+
+public:
+	BlackScholesProcess (Rate rate, Volatility vol, ) 
+
+};
+
+class OrnsteinUlenbeckProcess: public DiffusionProcess{
+	double speed_ ;
+	Volatility volatility_;
+public:
+	OrnsteinUlenbeckProcess(double speed , Volatility vol, Value x0 = 0.0) :
+	speed_(speed), volatility_(vol), DiffusionProcess(x0) {}
+	
+	double drift (Time t , Value x) const {
+		return 0 - speed_*x; 
+	}
+	
+}
