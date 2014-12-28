@@ -16,9 +16,11 @@ namespace Quantlib {
 		public :
 			BlackScholesOption () {}
 			BlackScholesOption (Option::Type type ,double underlying ,double strike ,
-				double dividendYield ,double riskfreeRate ,double residualTime ,double volatility ) ;
+				double dividendYield ,double riskFreeRate ,double residualTime ,double volatility ) ;
 			virtual ~BlackScholesOption () {}
+			//modifiers
 			virtual void setVolatility(double newVolatility) ;
+			virtual void setRiskFreeRate(double newRate);
 			virtual void setDividendYield (double newDividendYield ) ;
 			virtual double value () const ;
 			virtual double delta () const ;
@@ -26,12 +28,15 @@ namespace Quantlib {
 			virtual double theta ()const ;
 			virtual double Vega () const ;
 			virtual double rho () const ;
+			
 			double calcBSCallPrice (double price ,double strike ,double vol ,
 				double rate ,double dividend ,double T ) ;
 			double calcBSCallPrice () ;
+			
 			double calcBSPutPrice (double vol ,double rate ,double div ,
 				double strike , double price ,double T ) ;
 			double calcBSPutPrice () ;
+		
 		protected :
 			Option::Type type_ ;
 			Option::Exercise exercise_ ;
@@ -55,26 +60,26 @@ namespace Quantlib {
 			double operator () (double x) const ;
 		private :
 			mutable Handle <BlackScholesOption> bsm ;
-			doubel targetPrice_ ;
+			double targetPrice_ ;
 		};
 		
-		inline BlackSholesOption ::VolatilityFunction ::VolatilityFunction (const Handle <BlackScholesOption >& tempBSM ,double targetPrice ){
-					bsm = tempBSM ;    
-					targetPricer_ = targetPrice ;
+		inline BlackScholesOption ::VolatilityFunction ::VolatilityFunction (const Handle <BlackScholesOption >& tempBSM ,double targetPrice ){
+			bsm = tempBSM ;    
+			targetPrice_ = targetPrice ;
 		}
 		inline double BlackScholesOptipn::VolatilityFunction::Operator () (double x) const {
-					bsm ->setVolatility (x);
-					return (bsm ->value () - targetPrice_) ;   
+			bsm ->setVolatility (x);
+			return (bsm ->value () - targetPrice_) ;   
 		}
 		inline BlackScholesOption ::DivYieldFunction ::DivYieldFunction (const Handle <BlackScholesOption >& tempBSM ,double targetPrice)
 		{
-					bsm = tempBSM;
-					targetPrice_ = targetPrice;
+			bsm = tempBSM;
+			targetPrice_ = targetPrice;
 		}
 
 		inline double BlackScholesOption ::DivYieldFunction::Operator () (double x) const {
-					bsm ->setDividendYield (x);
-					return (bsm ->value () - targetPrice_) ;   
+			bsm->setDividendYield(x);
+			return (bsm->value() - targetPrice_) ;   
 		}
 	}//endof namespace Pricer  
 }//endof namespace Quantlib 
