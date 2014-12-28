@@ -2,7 +2,7 @@
 #define BSM_option_pricer_h 
 #include "Solver1d.h"
 #include "Errors.h"
-#include "VanilaOption.h" >
+#include "VanilaOption.h"
 
 #define QL_MIN_VOLATILITY 1.0e-4
 #define QL_MIN_DIVYIELD 1.0e-7
