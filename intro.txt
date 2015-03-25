@@ -1,2 +1,1 @@
-Source code is originated from Justin London.
-I modify it and update it. 
+Interesting financial products calculation
