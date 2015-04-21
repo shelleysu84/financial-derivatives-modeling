@@ -14,7 +14,7 @@ namespace Instruments
 	{
 	public :
 		VanillaOption () { }
-		Vanillaoption (double price ,double strike ,double rate , double div ,double vol ,double T ,
+		VanillaOption (double price ,double strike ,double rate , double div ,double vol ,double T ,
 			Option ::Type type , Option ::Exercise exercise ,const Handle <pricingEngine>& engine ) ;
 		double delta () const ;
 		double gamma () const ;
