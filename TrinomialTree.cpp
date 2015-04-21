@@ -6,68 +6,63 @@
 #include <NumericalMethod.h>
 #include <vector>
 
-namespace Quantlib {
-        namespace Lattices {
-                class TrinomialBranching 
-                {
-                public :
-                        TrinomialBranching () : probs_ (3 ) {}
-                        virtual ~TrinomialBranching () {}
-                        inline Size descendant (Size index ,Size branch ) const 
-                        {    return (k _[index] - jMin()) - 1 +branch ;     } //?
-                        
-                        inline jMin () const 
-                        {    return *std :: min_element (k.begin (), k.end ()) - 1 ;     }
-                        inline double probability (Size index ,Size branch ) const 
-                        {    return probs[branch][index] ;    }
+class TrinomialBranch 
+{
+public :
+        TrinomialBranch () : probs_ (3) {}
+        virtual ~TrinomialBranch () {}
+        int children (int index ,int branch) const 
+        {    return (k_[index] - Minimum()) - 1 + branch ;     } 
+        
+        double probability (int index ,int branch ) const 
+        {    return probs[branch][index] ;    }
+        
+        int Minimum() const 
+        {    return *std :: min_element (k.begin (), k.end ()) - 1 ;     }
+        
 
-                private :
-                        friend class TrinomialTree ;
-                        std ::vector <int > k_ ;
-                        std ::vector <std ::vector <double >> probs_ ;
-                } ;
+private :
+        std::vector <int > k_ ;
+        friend class TrinomialTree ;
+        std::vector <std::vector<double> > probs_;
+} ;
 
-                class TrinomialTree : public Tree 
-                {
-                public :
-                        TrinomialTree ()    {}
-                        TrinomialTree (const Handle<DiffusionProcess>& process , const TimeGrid & timeGrid ,bool isPositive = false   );
-                        double dx (Size i ) const {    return dx_[i];    }
-                        double underlying (Size i ,Size index ) const ;
-                        const TimeGrid & timeGrid () const {    return tmeGrid_ ;    }
-                        inline int descendant (int i ,int index ,int branch) const 
-                        {    return branchings_ [i]-> descendant (index ,branch );     }
-                        inline double probability (int i ,int j ,int b ) const 
-                        {    return branchings_[i]-> probability (j , b );        }
-                        
-                        inline int size (int i )const 
-                        {
-                                if (i = = 0)     return  1;    
-                                const std ::vector <int >& k = branchings_[i -1 ]->k_ ;
-                                int jMin = *std::min_element(k.begin(), k.end()) - 1;
-                                int jMax = *std::max_element(k.begin(), k.end()) + 1;
-                                return jMax - jMin + 1;
-                        }
+class TrinomialTree : public Tree 
+{
+public :
+        TrinomialTree ()    {}
+        TrinomialTree (const Handle<DiffusionProcess>& process , const TimeGrid & timeGrid ,bool isPositive = false   );
+        double dx (int i ) const {    return dx_[i];    }
+        double underlying (int i ,int index ) const ;
+        const TimeGrid & timeGrid () const {    return timeGrid_ ;    }
+        inline int children (int i ,int index ,int branch) const 
+        {    return branchings_ [i]-> children (index ,branch );     }
+        inline double probability (int i ,int j ,int b ) const 
+        {    return branchings_[i]-> probability (j , b );        }
+        
+        inline int size (int i )const 
+        {
+                if (i = = 0)     return  1;    
+                const std ::vector <int >& k = branchings_[i -1 ]->k_ ;
+                int Minimum = *std::min_element(k.begin(), k.end()) - 1;
+                int Maximum = *std::max_element(k.begin(), k.end()) + 1;
+                return Maximum - Minimum + 1;
+        }
 
-                        double underlying (int i ,int index )const 
-                        {
-                                if (i ==0 )return x0_ ;
-                                const std ::vector <int >& k = branchings_[i -1 ]->k_ ;
-                                int jMin = *std::min_element(k.begin(), k.end()) - 1;
-                                return x0_ + ( jMin * 1.0+index *1.0)*dx(i) ; //?
-                        }
-               protected :
-                                std ::vector <Handle <TrinomialBranching>> branchings_ ;
-                                double x0_ ;
-                                std ::vector <double >    dx_ ;
-                                TimeGrid timeGrid_ ; 
+        double underlying (int i ,int index )const 
+        {
+                if (i ==0 )return x0_ ;
+                const std ::vector <int >& k = branchings_[i -1 ]->k_ ;
+                int Minimum = *std::min_element(k.begin(), k.end()) - 1;
+                return x0_ + ( Minimum * 1.0+index *1.0)*dx(i) ; //?
+        }
+protected :
+                std ::vector<Handle <TrinomialBranch>> branchings_ ;
+                double x0_ ;
+                std ::vector<double >  dx_ ;
+                TimeGrid timeGrid_ ; 
 
-                } ;
-
-
-        }//endof Lattices 
-
-}//endof Quantlib 
+} ;
 
 using namespace Quantlib ::Lattices ;
 
