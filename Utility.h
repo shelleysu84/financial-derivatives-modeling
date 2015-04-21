@@ -148,7 +148,7 @@ public :
 
         double Uniformrandom (double min ,double max )
         {
-               //后面的程序暂时不用     
+               //continue later     
         }
 
         void sobolp_generateSamples (struct sobolp *config, double *Samples)
@@ -220,7 +220,6 @@ public :
                         for (j = 0; j <d[i]; j ++)
                                 config->v[i][j] =1;        //做出下三角型的V矩阵
 
-                //这里是鬃么回事？？？
                 for (i = 0 ; i <config ->_dim; i ++)
                         for (j =0; j< VMAX; j ++)
                         {
@@ -263,7 +262,7 @@ public :
                 }
                 
         }
-
+	//generate poisson distribution
         int poisson (double mu)
         {
                 assert (mu >0 )
@@ -276,11 +275,6 @@ public :
                 return i -1 ;   
         } 
 
-        double _u( void )//?
-
-
-
-
-        
+	//.. continue later        
 }//StatUtility  
 #endif
