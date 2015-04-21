@@ -1,14 +1,14 @@
 #inlcude <BlackModel.h>
-/**********************************************************************************
-priceBlackCap : computes the price of caplets using BlacksFormula
-[in]: vector<double> capVol : vector of cap volatilities
-vector<double> PDB : price of pure discount bonds
-vector<double> maturity : vector of caplet maturities (payment times)
-vector<double> Rcap : cap rate
-double L : principal amount of loan
-double tenor : length of time between payment times (reset dates)
-[out]: vector<double> : caplets
-*********************************************************************************/
+/*
+priceBlackCap : the price of caplets using BlacksFormula
+capVol : vector of cap volatilities
+PDB : price of pure discount bonds
+maturity : vector of caplet maturities (payment times)
+Rcap : cap rate
+L : principal amount of loan
+tenor : length of time between payment times (reset dates)
+[out]: caplets
+*/
 
 std::vector <double > BlackModel1::priceBlackCap (std::vector<double> capVol , std::vector<double> PDB ,std::vector<double> maturity,double Rcap ,double L ,double tenor)
 {
