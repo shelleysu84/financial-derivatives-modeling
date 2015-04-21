@@ -1,10 +1,7 @@
-// Black Scholes Greeks
-// By Fabrice Douglas Rouah, 2009
-// For Visual C++.Net Version 7.1
-
+/*calc black scholes greeks parameters*/
 #include "stdafx.h"
 #include <vector>
-#using <mscorlib.dll>
+
 #include <stdio.h>
 #include <math.h>
 #include <iostream>
@@ -96,7 +93,7 @@ int main()
 {
 	double S = 100.0;		// Stock Price
 	double K = 100.0;		// Strike Price
-	double T = 0.50;		// Years to maturity
+	double T = 0.50;		// Maturity
 	double r = 0.05;		// Risk free interest rate
 	double v = 0.20;		// Yearly volatility
 	char OpType = 'P';		// 'C'all or 'P'ut
