@@ -1,7 +1,5 @@
 /**********************************************************************************
-Abstract Instrument class
-This class is purely abstract and defines the interface of concrete instruments
-which will be derived from this one. It implements the Observable interface
+interface of Observable price engine
 **********************************************************************************/
 #ifndef quantlib_instrument_h 
 #define quantlib_instrument_h
